@@ -1,1 +1,22 @@
-/* You can add global styles to this file, and also import other style files */
+html, body{
+  margin: 0;
+  padding: 0;
+  font-family: "Gilda Display", serif;
+}
+
+app-header {
+  border-bottom: 1px solid black;
+}
+
+ul {
+  list-style-type: none;
+  width: 75vw;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  font-size: larger;
+}
+
+nav {
+  line-height: 8vh;
+}
