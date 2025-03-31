@@ -1,0 +1,18 @@
+<app-header></app-header>
+
+<div class="bijoux">
+  @if (bijoux) {
+  @for (bijou of bijoux; track bijou.id) {
+  <div class="card">
+    <img [src]="displayBijouImage(bijou.img)" alt="Image de {{ bijou.nom }}" width="50" (click)="ouvrirImage(displayBijouImage(bijou.img))"/>
+    <h2>{{ bijou.id }}</h2>
+  </div>
+  }
+  }
+</div>
+
+@if (imagePleineEcran) {
+  <div class="modal" (click)="fermerImage()">
+    <img [src]="imagePleineEcran" class="modal-content">
+  </div>
+}

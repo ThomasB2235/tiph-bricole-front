@@ -1,0 +1,14 @@
+@if (!previewUrl) {
+  <button (click)="fileInput.click()" class="button-ajouter">Importer une photo</button>
+  <input #fileInput type="file" accept="image/*" (change)="onFileSelected($event)" hidden />
+}
+
+@if (errorMessage) {
+  {{ errorMessage }}
+}
+
+
+@if (previewUrl) {
+  <img [src]="previewUrl" alt="Aperçu de l'image" />
+  <button (click)="onValidate()" class="button-ajouter">Valider</button>
+}
