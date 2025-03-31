@@ -1,0 +1,39 @@
+<div class="headerDashboard"><p class="hello">Bonjour Tiphaine, tu es connectée.</p>
+  <div class="logout"><i class="fa-solid fa-power-off" (click)="logout()"></i></div>
+</div>
+
+<div class="ajouter">
+  <button class="button-ajouter" (click)="goToAjouter()">Ajouter</button>
+</div>
+
+<div class="bijoux">
+
+  @if (bijoux) {
+  @for (bijou of bijoux; track bijou.id) {
+  <div class="card">
+    <img [src]="displayBijouImage(bijou.img)" alt="Image de {{ bijou.nom }}" width="50" (click)="ouvrirImage(displayBijouImage(bijou.img))"/>
+    <div class="admin-card">
+      <h2>{{ bijou.id }}</h2>
+    <h2 (click)="ouvrirValiderSupprimer(bijou.id, displayBijouImage(bijou.img))"><i class="fa-solid fa-trash"></i></h2>
+    </div>
+  </div>
+  }
+  }
+</div>
+
+@if (imagePleineEcran) {
+  <div class="modal" (click)="fermerImage()">
+    <img [src]="imagePleineEcran" class="modal-content">
+  </div>
+}
+
+@if (idBijouSupprimer) {
+  <div class="modal-suppression">
+    <h2 class="texte-clair">Supprimer l'article ?</h2>
+    <img [src]="imagePleineEcranASupprimer" class="modal-content-suppression">
+    <div class="choix-suppression">
+      <i class="fa-solid fa-circle-xmark" (click)="annulerSuppprimer()"></i>
+      <i class="fa-solid fa-circle-check"(click)="supprimer(idBijouSupprimer)"></i>
+    </div>
+  </div>
+}

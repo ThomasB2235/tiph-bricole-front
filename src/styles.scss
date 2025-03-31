@@ -1,0 +1,370 @@
+@import 'colors';
+
+html, body{
+  margin: 0;
+  padding: 0;
+  font-family: "Poppins", sans-serif;
+  font-weight: 100;
+  color: $text;
+}
+
+.hello {
+  color: $text;
+  font-size: 5vw;
+  text-align: center;
+  margin-top: 5vh;
+  font-weight: 300;
+}
+
+.headerDashboard {
+  padding-left: 1vh;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  background-color: $background;
+}
+
+.button-ajouter {
+  align-items: center;
+  background-color: $third;
+  border: 0;
+  border-radius: 100px;
+  box-sizing: border-box;
+  color: #ffffff;
+  cursor: pointer;
+  display: inline-flex;
+  font-family: -apple-system, system-ui, system-ui, "Segoe UI", Roboto, "Helvetica Neue", "Fira Sans", Ubuntu, Oxygen, "Oxygen Sans", Cantarell, "Droid Sans", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Lucida Grande", Helvetica, Arial, sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  justify-content: center;
+  line-height: 20px;
+  max-width: 480px;
+  min-height: 40px;
+  min-width: 0px;
+  overflow: hidden;
+  padding: 0px;
+  padding-left: 20px;
+  padding-right: 20px;
+  text-align: center;
+  touch-action: manipulation;
+  transition: background-color 0.167s cubic-bezier(0.4, 0, 0.2, 1) 0s, box-shadow 0.167s cubic-bezier(0.4, 0, 0.2, 1) 0s, color 0.167s cubic-bezier(0.4, 0, 0.2, 1) 0s;
+  user-select: none;
+  -webkit-user-select: none;
+  vertical-align: middle;
+}
+
+.button-ajouter:active {
+  background: $third;
+  color: rgb(255, 255, 255, .7);
+}
+
+.button-ajouter:disabled {
+  cursor: not-allowed;
+  background: rgba(0, 0, 0, .08);
+  color: rgba(0, 0, 0, .3);
+}
+
+.ajouter {
+  background-color: $background;
+  display: flex;
+  justify-content: center;
+}
+
+.fa-youtube {
+  color: rgb(168, 1, 1);
+}
+
+.card {
+  width: 40vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.card>h2 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: $background;
+  background-color: $third;
+  border-radius: 5px;
+  width: 16vw;
+  height: 8vw;
+}
+
+.bijoux {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  flex-wrap: wrap;
+  padding: 5vw;
+  background-color: $background;
+
+}
+
+app-header>h1 {
+  color: $text;
+  font-size: 5vw;
+  text-align: center;
+  margin-top: 5vh;
+  font-weight: 300;
+}
+
+
+app-header, app-header>div {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  background-color: $background;
+
+}
+
+i {
+  color: $text;
+}
+
+app-header>div {
+  width: 5vw;
+  padding-left: 5vw;
+  padding-right: 5vw;
+}
+
+img {
+  width: 90%; /* L'image occupe toute la largeur de la div */
+  height: 90%; /* L'image occupe toute la hauteur de la div */
+  border-radius: 10px;
+  object-fit: cover;
+}
+
+.modal-content-suppression {
+  width: 84vw;
+  height: 60vw;
+  border: none;
+  box-shadow: 0px 0px 20px rgba(255, 255, 255, 0.5);
+}
+
+.choix-suppression {
+  width: 60vw;
+  height: 10vw;
+  color: $text;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  padding-top: 5vh;
+  font-size: xx-large;
+}
+
+.choix-suppression>.fa-circle-xmark {
+  color: rgb(168, 1, 1);
+}
+
+.choix-suppression>.fa-circle-check {
+  color: rgb(3, 85, 10);
+}
+
+.texte-clair {
+  color: $background;
+}
+
+/* 📱 Mobile (jusqu'à 576px) */
+@media (max-width: 576px) {
+  body {
+    font-size: 14px;
+  }
+
+  app-header {
+    padding-left: 5vw;
+  }
+
+  app-header>div {
+    width: 15vw;
+    padding-left: 5vw;
+    padding-right: 5vw;
+  }
+
+  /* Style pour le conteneur modale */
+.modal {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.8);
+  z-index: 1000;
+}
+
+.modal-suppression {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.8);
+  z-index: 1000;
+}
+
+.modal-content-suppression {
+  width: 60vw;
+  height: 84vw;
+  border: none;
+  box-shadow: 0px 0px 20px rgba(255, 255, 255, 0.5);
+}
+
+.choix-suppression {
+  width: 60vw;
+  height: 10vw;
+  color: $text;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  padding-top: 5vh;
+  font-size: xx-large;
+}
+
+.choix-suppression>.fa-circle-xmark {
+  color: rgb(168, 1, 1);
+}
+
+.choix-suppression>.fa-circle-check {
+  color: rgb(3, 85, 10);
+}
+
+.texte-clair {
+  color: $background;
+}
+
+.card {
+  width: 40vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+
+/* Style pour l'image en plein écran */
+.modal-content {
+  width: 90vw; /* 90% de la largeur du viewport */
+  height: calc(90vw * 7 / 5); /* Hauteur calculée pour conserver le ratio 5:7 */
+  max-height: 90vh;
+  border: none;
+  box-shadow: 0px 0px 20px rgba(255, 255, 255, 0.5);
+}
+
+/* Masquer la modale par défaut */
+.hidden {
+  display: none;
+}
+}
+
+/* 📟 Tablette (de 577px à 768px) */
+@media (min-width: 577px) and (max-width: 768px) {
+  body {
+    font-size: 16px;
+  }
+}
+
+/* 💻 Petit écran / Laptop (de 769px à 1024px) */
+@media (min-width: 769px) and (max-width: 1024px) {
+  body {
+    font-size: 18px;
+  }
+}
+
+/* 🖥 Grand écran / Desktop (plus de 1024px) */
+@media (min-width: 1025px) {
+  body {
+    font-size: 20px;
+  }
+
+  /* Style pour le conteneur modale */
+.modal {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.8);
+  z-index: 1000;
+}
+
+/* Style pour l'image en plein écran */
+.modal-content {
+  width: 600px;
+  height: 800px;
+  height: calc(600px * 7 / 5);
+  border: none;
+  box-shadow: 0px 0px 20px rgba(255, 255, 255, 0.8);
+}
+
+/* Masquer la modale par défaut */
+.hidden {
+  display: none;
+}
+
+.modal-suppression {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.8);
+  z-index: 1000;
+}
+
+.modal-content-suppression {
+  width: 40vw;
+  height: 30vw;
+  border: none;
+  box-shadow: 0px 0px 20px rgba(255, 255, 255, 0.5);
+}
+
+.choix-suppression {
+  width: 60vw;
+  height: 10vw;
+  color: $text;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  padding-top: 5vh;
+  font-size: xx-large;
+}
+
+.card {
+  width: 20vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.card>h2 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: $background;
+  background-color: $third;
+  border-radius: 5px;
+  width: 16vw;
+  height: 8vw;
+}
+}
+
