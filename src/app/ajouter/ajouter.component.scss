@@ -1,3 +1,44 @@
+@import '../../colors.scss';
+
 .container-ajouter {
-  margin: 5%;
+  padding: 5%;
+}
+
+.center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.previewImageCenter {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: column;
+  height: 80vh;
+}
+
+.rowSpace {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: row;
+  width: 80%;
+}
+
+.color-dark {
+  color: #ffffff;
+  background-color: $text;
+}
+
+.button-ajouter:active {
+  background: $third;
+  color: rgb(255, 255, 255, .7);
+}
+
+.button-ajouter:disabled {
+  cursor: not-allowed;
+  background: rgba(0, 0, 0, .08);
+  color: rgba(0, 0, 0, .3);
 }

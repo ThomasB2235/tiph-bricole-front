@@ -1,4 +1,4 @@
-<div class="container-ajouter">
+<div class="container-ajouter center">
 @if (!previewUrl) {
   <button (click)="fileInput.click()" class="button-ajouter">Importer une photo</button>
   <input #fileInput type="file" accept="image/*" (change)="onFileSelected($event)" hidden />
@@ -10,7 +10,12 @@
 
 
 @if (previewUrl) {
+  <div class="previewImageCenter">
   <img [src]="previewUrl" alt="Aperçu de l'image" />
+  <div class="rowSpace">
+  <button (click)="annuler()" class="button-ajouter color-dark">Annuler</button>
   <button (click)="onValidate()" class="button-ajouter">Valider</button>
+</div>
+</div>
 }
 </div>

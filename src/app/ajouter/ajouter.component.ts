@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-ajouter',
@@ -8,6 +9,11 @@ import { Component } from '@angular/core';
   styleUrl: './ajouter.component.scss'
 })
 export class AjouterComponent {
+
+  constructor(private router: Router) {
+
+  }
+
   previewUrl: string | null = null;
   resizedImage: File | null = null;
   errorMessage: string | null = null;
@@ -92,5 +98,9 @@ export class AjouterComponent {
       console.log('Image prête pour l’envoi :', this.resizedImage);
       alert('Image validée et prête pour l’upload !');
     }
+  }
+
+  annuler() {
+    this.router.navigate(['/dashboard']);
   }
 }

@@ -64,6 +64,12 @@ html, body{
   color: rgba(0, 0, 0, .3);
 }
 
+app-ajouter {
+  background-color: $background; /* Couleur de fond personnalisée */
+  min-height: 100vh; /* S'assure que le fond couvre toute la hauteur de l'écran */
+  display: block; /* Assure que l'élément occupe tout l'espace */
+}
+
 .ajouter {
   background-color: $background;
   display: flex;
