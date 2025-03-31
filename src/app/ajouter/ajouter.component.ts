@@ -98,6 +98,7 @@ export class AjouterComponent {
       console.log('Image prête pour l’envoi :', this.resizedImage);
       alert('Image validée et prête pour l’upload !');
     }
+
   }
 
   annuler() {
