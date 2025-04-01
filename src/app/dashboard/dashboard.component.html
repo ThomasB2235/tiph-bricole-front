@@ -1,4 +1,5 @@
-<div class="headerDashboard"><p class="hello">Bonjour Tiphaine, tu es connectée.</p>
+<div class="headerDashboard">
+  <p class="hello">Bonjour Tiphaine</p>
   <div class="logout"><i class="fa-solid fa-power-off" (click)="logout()"></i></div>
 </div>
 
@@ -7,30 +8,38 @@
 </div>
 
 <div class="bijoux">
-
+  @if (!bijoux) {
+    <div> Pas de créations en ligne</div>
+  }
   @if (bijoux) {
   @for (bijou of bijoux; track bijou.id) {
   <div class="card">
-    <img [src]="displayBijouImage(bijou.img)" alt="Image de {{ bijou.nom }}" width="50" (click)="ouvrirImage(displayBijouImage(bijou.img))"/>
+    <img [src]="displayBijouImage(bijou.img)"
+    alt="Image de {{ bijou.nom }}" width="50" (click)="ouvrirImage(displayBijouImage(bijou.img))" width="300" height="300" loading="lazy"/>
     <div class="admin-card">
       <h2>{{ bijou.id }}</h2>
-    <h2 (click)="ouvrirValiderSupprimer(bijou.id, displayBijouImage(bijou.img))"><i class="fa-solid fa-trash"></i></h2>
+      <h2 (click)="ouvrirValiderSupprimer(bijou.id, displayBijouImage(bijou.img))"><i class="fa-solid fa-trash"></i></h2>
     </div>
   </div>
   }
+  <div class="pagination">
+    <button (click)="prevPage()" [disabled]="currentPage === 1" class="button-ajouter">Précédent</button>
+    <span>Page {{ currentPage }} / {{ totalPages() }}</span>
+    <button (click)="nextPage()" [disabled]="currentPage >= totalPages()" class="button-ajouter">Suivant</button>
+  </div>
   }
 </div>
 
 @if (imagePleineEcran) {
   <div class="modal" (click)="fermerImage()">
-    <img [src]="imagePleineEcran" class="modal-content">
+    <img [src]="imagePleineEcran" class="modal-content" width="300" height="300" loading="lazy">
   </div>
 }
 
 @if (idBijouSupprimer) {
   <div class="modal-suppression">
     <h2 class="texte-clair">Supprimer l'article ?</h2>
-    <img [src]="imagePleineEcranASupprimer" class="modal-content-suppression">
+    <img [src]="imagePleineEcranASupprimer" class="modal-content-suppression" width="300" height="300" loading="lazy">
     <div class="choix-suppression">
       <i class="fa-solid fa-circle-xmark" (click)="annulerSuppprimer()"></i>
       <i class="fa-solid fa-circle-check"(click)="supprimer(idBijouSupprimer)"></i>

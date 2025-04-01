@@ -11,7 +11,8 @@
 
 @if (previewUrl) {
   <div class="previewImageCenter">
-  <img [src]="previewUrl" alt="Aperçu de l'image" />
+  <p>Ajouter cette image ?</p>
+  <img [src]="previewUrl" alt="Aperçu de l'image"/>
   <div class="rowSpace">
   <button (click)="annuler()" class="button-ajouter color-dark">Annuler</button>
   <button (click)="onValidate()" class="button-ajouter">Valider</button>

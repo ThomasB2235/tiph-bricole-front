@@ -1,5 +1,7 @@
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { environment } from '../../environments/environment';
 
 @Component({
   selector: 'app-ajouter',
@@ -10,13 +12,16 @@ import { Router } from '@angular/router';
 })
 export class AjouterComponent {
 
-  constructor(private router: Router) {
+  constructor(private router: Router, private http: HttpClient) {
 
   }
 
   previewUrl: string | null = null;
   resizedImage: File | null = null;
   errorMessage: string | null = null;
+  nom = "defaut";
+  description = "defaut";
+  stock = 1;
 
   onFileSelected(event: Event) {
     this.errorMessage = null; // Réinitialisation des erreurs
@@ -43,24 +48,16 @@ export class AjouterComponent {
       img.onload = () => {
         const TARGET_WIDTH = 600;
         const TARGET_HEIGHT = 800;
-
         const canvas = document.createElement('canvas');
         const ctx = canvas.getContext('2d');
         canvas.width = TARGET_WIDTH;
         canvas.height = TARGET_HEIGHT;
-
-        // Calcul du ratio pour remplir tout l'espace
         const scale = Math.max(TARGET_WIDTH / img.width, TARGET_HEIGHT / img.height);
-
-        // Nouvelle taille après redimensionnement
         const newWidth = img.width * scale;
         const newHeight = img.height * scale;
-
-        // Décalage pour centrer l’image
         const xOffset = (TARGET_WIDTH - newWidth) / 2;
         const yOffset = (TARGET_HEIGHT - newHeight) / 2;
 
-        // Dessiner l’image sur le canvas sans marges
         if (!ctx) {
           this.errorMessage = "Erreur lors du traitement de l'image.";
           return;
@@ -68,17 +65,13 @@ export class AjouterComponent {
 
         ctx.drawImage(img, xOffset, yOffset, newWidth, newHeight);
 
-        // ✅ MAJ immédiate de l'aperçu
-        this.previewUrl = canvas.toDataURL("image/png");
+        this.previewUrl = canvas.toDataURL("image/webp", 0.8);
 
-        // ✅ Conversion en PNG avec gestion d'erreur
         canvas.toBlob((blob) => {
           if (blob) {
-            this.resizedImage = new File([blob], 'image.png', { type: 'image/png' });
-          } else {
-            this.errorMessage = "Échec de la conversion de l'image.";
+            this.resizedImage = new File([blob], 'image.webp', { type: 'image/webp' });
           }
-        }, 'image/png');
+        }, 'image/webp');
       };
 
       img.onerror = () => {
@@ -94,11 +87,49 @@ export class AjouterComponent {
   }
 
   onValidate() {
-    if (this.resizedImage) {
-      console.log('Image prête pour l’envoi :', this.resizedImage);
-      alert('Image validée et prête pour l’upload !');
+    if (!this.resizedImage) {
+      alert("Veuillez sélectionner une image avant de valider.");
+      return;
     }
 
+    const formData = new FormData();
+    formData.append("file", this.resizedImage);
+
+    const token = localStorage.getItem("token");
+
+    if (!token) {
+      alert("Vous devez être connecté pour ajouter un bijou.");
+      return;
+    }
+
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+
+    this.http.post<{ filename: string }>(environment.backEnd + '/upload', formData, { headers }).subscribe({
+      next: (response) => {
+        const imagePath = response.filename;
+
+        const bijouData = {
+          nom: this.nom,
+          img: imagePath,
+          description: this.description,
+          stock: this.stock
+        };
+
+        this.http.post('http://localhost:8000/bijoux', bijouData, { headers }).subscribe({
+          next: () => {
+            this.router.navigate(['/dashboard']);
+          },
+          error: (error) => {
+            this.errorMessage = "Erreur lors de l'ajout du bijou.";
+          }
+        });
+      },
+      error: (error) => {
+        this.errorMessage = "Erreur lors de l'upload de l'image.";
+      }
+    });
   }
 
   annuler() {

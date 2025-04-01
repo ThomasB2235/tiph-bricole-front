@@ -4,6 +4,7 @@ import { BijouService } from '../bijou.service';
 import { environment } from '../../environments/environment';
 import { AuthService } from '../auth.service';
 import { Router } from '@angular/router';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Component({
   selector: 'app-dashboard',
@@ -13,16 +14,29 @@ import { Router } from '@angular/router';
   styleUrl: './dashboard.component.scss',
 })
 export class DashboardComponent {
+  currentPage = 1;
+  itemsPerPage = 4;
+  totalItems = 0;
   bijoux: Bijou[] = [];
   imagePleineEcran: string | null = null;
   imagePleineEcranASupprimer: string | null = null;
   idBijouSupprimer: number | undefined;
 
-  constructor(private bijouService: BijouService, private authService: AuthService, private router: Router) {}
+  constructor(private bijouService: BijouService,
+              private authService: AuthService,
+              private router: Router,
+              private http: HttpClient) {}
 
   ngOnInit(): void {
-    this.bijouService.getBijoux().subscribe((bijoux) => {
-      this.bijoux = bijoux;
+    this.loadBijoux();
+  }
+
+  loadBijoux() {
+    this.bijouService.getBijoux(this.currentPage, this.itemsPerPage).subscribe({
+      next: (data) => {
+        this.bijoux = data.bijoux;
+        this.totalItems = data.total;
+      }
     });
   }
 
@@ -48,8 +62,25 @@ export class DashboardComponent {
     this.imagePleineEcranASupprimer = img;
   }
 
-  supprimer(id: number) {
-    console.log('supprimer le bijou', id);
+
+  supprimer(bijouId: number) {
+    const token = localStorage.getItem("token");
+    this.idBijouSupprimer = undefined;
+    if (!token) {
+      return;
+    }
+
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+
+    this.http.delete(`http://localhost:8000/bijoux/${bijouId}`, { headers }).subscribe({
+      next: () => {
+        this.loadBijoux();
+      },
+      error: (error) => {
+      }
+    });
   }
 
   annulerSuppprimer() {
@@ -58,5 +89,24 @@ export class DashboardComponent {
 
   goToAjouter() {
     this.router.navigate(['/ajouter']);
+  }
+
+
+  prevPage() {
+    if (this.currentPage > 1) {
+      this.currentPage--;
+      this.loadBijoux();
+    }
+  }
+
+  nextPage() {
+    if (this.currentPage < this.totalPages()) {
+      this.currentPage++;
+      this.loadBijoux();
+    }
+  }
+
+  totalPages(): number {
+    return Math.ceil(this.totalItems / this.itemsPerPage);
   }
 }

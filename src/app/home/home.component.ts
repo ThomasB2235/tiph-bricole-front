@@ -14,16 +14,24 @@ import { environment } from '../../environments/environment';
 })
 export class HomeComponent {
   title = 'tiph-bricole-front';
-
+  currentPage = 1;
+  itemsPerPage = 10;
+  totalItems = 0;
   bijoux: Bijou[] = [];
   imagePleineEcran: string | null = null;
 
   constructor(private bijouService: BijouService) {}
 
   ngOnInit(): void {
-    // Appel pour récupérer les bijoux
-    this.bijouService.getBijoux().subscribe(bijoux => {
-      this.bijoux = bijoux.filter(bijou => bijou.stock > 0);
+    this.loadBijoux();
+  }
+
+  loadBijoux() {
+    this.bijouService.getBijoux(this.currentPage, this.itemsPerPage).subscribe({
+      next: (data) => {
+        this.bijoux = data.bijoux;
+        this.totalItems = data.total;
+      }
     });
   }
 
@@ -37,5 +45,23 @@ export class HomeComponent {
 
   fermerImage() {
     this.imagePleineEcran = null;
+  }
+
+  prevPage() {
+    if (this.currentPage > 1) {
+      this.currentPage--;
+      this.loadBijoux();
+    }
+  }
+
+  nextPage() {
+    if (this.currentPage < this.totalPages()) {
+      this.currentPage++;
+      this.loadBijoux();
+    }
+  }
+
+  totalPages(): number {
+    return Math.ceil(this.totalItems / this.itemsPerPage);
   }
 }
