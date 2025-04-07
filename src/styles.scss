@@ -3,7 +3,7 @@
 @font-face {
   font-family: 'Gilda Display';
   src: url('https://fonts.gstatic.com/s/gildadisplay/v22/pxiByp8kvYcXn8gYbc4kShqY3sk1rxhvfA.ttf') format('truetype');
-  font-display: swap;  /* Utilise une police de secours jusqu'à ce que la police soit prête */
+  font-display: swap;
 }
 
 html, body{
@@ -11,7 +11,17 @@ html, body{
   padding: 0;
   font-family: "Poppins", sans-serif;
   font-weight: 100;
+  min-height: 100vh;
   color: $text;
+  overflow-x: hidden;
+  background-color: $background;
+
+}
+
+.logo {
+  width: 16vw;
+  height: auto;
+  display: block;
 }
 
 .hello {
@@ -87,7 +97,7 @@ app-ajouter {
 }
 
 .card {
-  width: 40vw;
+  width: 20vw;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -154,10 +164,8 @@ app-header>div {
 }
 
 img {
-  max-width: 90%;
-  max-height: 90%;
-  width: 150px;
-  height: 200px;
+  width: 90%;
+  height: 90%;
   border-radius: 10px;
   object-fit: cover;
 }
@@ -218,6 +226,7 @@ img {
 @media (max-width: 576px) {
   body {
     font-size: 14px;
+    min-height: 100vh;
   }
 
   app-header {
@@ -225,9 +234,15 @@ img {
   }
 
   app-header>div {
-    width: 15vw;
+    width: 20vw;
     padding-left: 5vw;
     padding-right: 5vw;
+  }
+
+  .logo {
+    width: 20vw;
+    height: auto;
+    display: block;
   }
 
   /* Style pour le conteneur modale */
@@ -317,6 +332,7 @@ img {
 @media (min-width: 577px) and (max-width: 768px) {
   body {
     font-size: 16px;
+    min-height: 100vh;
   }
 }
 
@@ -324,6 +340,7 @@ img {
 @media (min-width: 769px) and (max-width: 1024px) {
   body {
     font-size: 18px;
+    min-height: 100vh;
   }
 }
 
@@ -331,6 +348,7 @@ img {
 @media (min-width: 1025px) {
   body {
     font-size: 20px;
+    min-height: 100vh;
   }
 
   /* Style pour le conteneur modale */

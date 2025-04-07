@@ -13,7 +13,7 @@ import { environment } from '../../environments/environment';
   styleUrl: './home.component.scss'
 })
 export class HomeComponent {
-  title = 'tiph-bricole-front';
+  title = 'tiph-bricole';
   currentPage = 1;
   itemsPerPage = 10;
   totalItems = 0;

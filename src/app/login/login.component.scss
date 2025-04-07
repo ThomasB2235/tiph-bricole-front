@@ -1,11 +1,13 @@
 @import '../../colors.scss';
 
+
+
 .loginFlex {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  height: 20vh;
+  height: 40vh;
   padding-top: 25vh;
   font-size: 5vw;
   font-weight: 300;
@@ -69,4 +71,8 @@ h2 {
   cursor: not-allowed;
   background: rgba(0, 0, 0, .08);
   color: rgba(0, 0, 0, .3);
+}
+
+@media (max-width: 576px) {
+
 }

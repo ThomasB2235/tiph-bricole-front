@@ -1,4 +1,6 @@
 <div class="headerDashboard">
+  <img src="assets/logo.png" alt="logo de tiphaine Bricole" class="logo" loading="lazy"/>
+
   <p class="hello">Bonjour Tiphaine</p>
   <div class="logout"><i class="fa-solid fa-power-off" (click)="logout()"></i></div>
 </div>
@@ -15,7 +17,7 @@
   @for (bijou of bijoux; track bijou.id) {
   <div class="card">
     <img [src]="displayBijouImage(bijou.img)"
-    alt="Image de {{ bijou.nom }}" width="50" (click)="ouvrirImage(displayBijouImage(bijou.img))" width="300" height="300" loading="lazy"/>
+    alt="Image de {{ bijou.nom }}" width="50" (click)="ouvrirImage(displayBijouImage(bijou.img))" loading="lazy"/>
     <div class="admin-card">
       <h2>{{ bijou.id }}</h2>
       <h2 (click)="ouvrirValiderSupprimer(bijou.id, displayBijouImage(bijou.img))"><i class="fa-solid fa-trash"></i></h2>
@@ -32,14 +34,14 @@
 
 @if (imagePleineEcran) {
   <div class="modal" (click)="fermerImage()">
-    <img [src]="imagePleineEcran" class="modal-content" width="300" height="300" loading="lazy">
+    <img [src]="imagePleineEcran" class="modal-content" loading="lazy">
   </div>
 }
 
 @if (idBijouSupprimer) {
   <div class="modal-suppression">
     <h2 class="texte-clair">Supprimer l'article ?</h2>
-    <img [src]="imagePleineEcranASupprimer" class="modal-content-suppression" width="300" height="300" loading="lazy">
+    <img [src]="imagePleineEcranASupprimer" class="modal-content-suppression" loading="lazy">
     <div class="choix-suppression">
       <i class="fa-solid fa-circle-xmark" (click)="annulerSuppprimer()"></i>
       <i class="fa-solid fa-circle-check"(click)="supprimer(idBijouSupprimer)"></i>
