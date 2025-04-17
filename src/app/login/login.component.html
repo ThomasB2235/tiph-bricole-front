@@ -1,12 +1,14 @@
 <div class="login-container">
-  <h2>Connexion</h2>
+  <h1>Connexion</h1>
+
+  <img src="assets/logo_optimized.webp" alt="logo de tiphaine Bricole" class="logo_login" loading="lazy"/>
 
   <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="loginFlex">
     <div>
       <label for="username">Nom d'utilisateur : </label>
       <input id="username" type="text" formControlName="username" required>
     </div>
-    <div>
+    <div class="padding">
       <label for="password">Mot de passe : </label>
       <input id="password" type="password" formControlName="password" required>
     </div>

@@ -5,16 +5,28 @@
 .loginFlex {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: space-around;
   align-items: center;
   height: 40vh;
-  padding-top: 25vh;
+  padding-top: 5vh;
   font-size: 5vw;
   font-weight: 300;
 }
 
+.logo_login {
+  width: 20vw;
+  height: auto;
+}
+
 h2 {
   padding-left: 2vw;
+}
+
+.login-container {
+  display: flex;
+  flex-direction: column; /* Les éléments sont empilés verticalement */
+  justify-content: center; /* Centre les éléments verticalement */
+  align-items: center;
 }
 
 .errorMessage {
@@ -74,5 +86,53 @@ h2 {
 }
 
 @media (max-width: 576px) {
+  .logo_login {
+    width: 50vw;
+    height: auto;
+  }
+}
 
+@media (min-width: 577px) and (max-width: 768px) {
+  .logo_login {
+    width: 20vw;
+    height: auto;
+  }
+
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+  .logo_login {
+    width: 20vw;
+    height: auto;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1024px) and (orientation: landscape) {
+  .logo_login {
+    width: 30vw !important;
+    height: auto;
+  }
+
+  .loginFlex {
+    justify-content: center;
+    padding: 0;
+  }
+
+  input {
+    height: 50px; /* Hauteur du champ */
+    padding: 10px; /* Espace interne */
+    font-size: 1.2rem; /* Taille du texte */
+    border: 1px solid #ccc; /* Bordure */
+    border-radius: 5px; /* Coins arrondis */
+    box-sizing: border-box; /* Inclut le padding dans la largeur totale */
+  }
+
+  input:focus {
+    border-color: $third; /* Couleur de la bordure au focus */
+    outline: none; /* Supprime le contour par défaut */
+  }
+
+  .padding {
+    margin-bottom: 5vh;
+  }
 }
