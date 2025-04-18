@@ -16,5 +16,5 @@ export class AppComponent {
 
   bijoux: Bijou[] = [];
 
-  constructor(private bijouService: BijouService) {}
+  constructor() {}
 }

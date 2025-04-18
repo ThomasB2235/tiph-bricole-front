@@ -10,11 +10,10 @@ import { environment } from '../../environments/environment';
   templateUrl: './ajouter.component.html',
   styleUrl: './ajouter.component.scss'
 })
+
 export class AjouterComponent {
 
-  constructor(private router: Router, private http: HttpClient) {
-
-  }
+  constructor(private router: Router, private http: HttpClient) {}
 
   previewUrl: string | null = null;
   resizedImage: File | null = null;
@@ -22,6 +21,10 @@ export class AjouterComponent {
   nom = "defaut";
   description = "defaut";
   stock = 1;
+  token = localStorage.getItem("token");
+  formData = new FormData();
+  img = new Image();
+  reader = new FileReader();
 
   onFileSelected(event: Event) {
     this.errorMessage = null; // Réinitialisation des erreurs
@@ -30,31 +33,27 @@ export class AjouterComponent {
 
     const file = input.files[0];
 
-    // Vérification du type de fichier
     if (!file.type.startsWith('image/')) {
       this.errorMessage = 'Veuillez sélectionner une image valide.';
       return;
     }
-
     this.resizeAndConvertImage(file);
   }
 
   resizeAndConvertImage(file: File) {
-    const reader = new FileReader();
-    reader.onload = (e: ProgressEvent<FileReader>) => {
-      const img = new Image();
-      img.src = e.target?.result as string;
+    this.reader.onload = (e: ProgressEvent<FileReader>) => {
+      this.img.src = e.target?.result as string;
 
-      img.onload = () => {
+      this.img.onload = () => {
         const TARGET_WIDTH = 600;
         const TARGET_HEIGHT = 800;
         const canvas = document.createElement('canvas');
         const ctx = canvas.getContext('2d');
         canvas.width = TARGET_WIDTH;
         canvas.height = TARGET_HEIGHT;
-        const scale = Math.max(TARGET_WIDTH / img.width, TARGET_HEIGHT / img.height);
-        const newWidth = img.width * scale;
-        const newHeight = img.height * scale;
+        const scale = Math.max(TARGET_WIDTH / this.img.width, TARGET_HEIGHT / this.img.height);
+        const newWidth = this.img.width * scale;
+        const newHeight = this.img.height * scale;
         const xOffset = (TARGET_WIDTH - newWidth) / 2;
         const yOffset = (TARGET_HEIGHT - newHeight) / 2;
 
@@ -62,11 +61,8 @@ export class AjouterComponent {
           this.errorMessage = "Erreur lors du traitement de l'image.";
           return;
         }
-
-        ctx.drawImage(img, xOffset, yOffset, newWidth, newHeight);
-
+        ctx.drawImage(this.img, xOffset, yOffset, newWidth, newHeight);
         this.previewUrl = canvas.toDataURL("image/webp", 0.8);
-
         canvas.toBlob((blob) => {
           if (blob) {
             this.resizedImage = new File([blob], 'image.webp', { type: 'image/webp' });
@@ -74,16 +70,14 @@ export class AjouterComponent {
         }, 'image/webp');
       };
 
-      img.onerror = () => {
+      this.img.onerror = () => {
         this.errorMessage = "Erreur lors du chargement de l'image.";
       };
     };
-
-    reader.onerror = () => {
+    this.reader.onerror = () => {
       this.errorMessage = "Erreur de lecture du fichier.";
     };
-
-    reader.readAsDataURL(file);
+    this.reader.readAsDataURL(file);
   }
 
   onValidate() {
@@ -92,24 +86,20 @@ export class AjouterComponent {
       return;
     }
 
-    const formData = new FormData();
-    formData.append("file", this.resizedImage);
+    this.formData.append("file", this.resizedImage);
 
-    const token = localStorage.getItem("token");
-
-    if (!token) {
+    if (!this.token) {
       alert("Vous devez être connecté pour ajouter un bijou.");
       return;
     }
 
     const headers = new HttpHeaders({
-      'Authorization': `Bearer ${token}`
+      'Authorization': `Bearer ${this.token}`
     });
 
-    this.http.post<{ filename: string }>(environment.backEnd + '/upload', formData, { headers }).subscribe({
+    this.http.post<{ filename: string }>(environment.backEnd + '/upload', this.formData, { headers }).subscribe({
       next: (response) => {
         const imagePath = response.filename;
-
         const bijouData = {
           nom: this.nom,
           img: imagePath,

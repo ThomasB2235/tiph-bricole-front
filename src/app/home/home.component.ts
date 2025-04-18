@@ -15,7 +15,7 @@ import { environment } from '../../environments/environment';
 export class HomeComponent {
   title = 'tiph-bricole';
   currentPage = 1;
-  itemsPerPage = 10;
+  itemsPerPage = 6;
   totalItems = 0;
   bijoux: Bijou[] = [];
   imagePleineEcran: string | null = null;
